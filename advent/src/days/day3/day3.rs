@@ -5,6 +5,7 @@ use std::collections::HashSet;
 pub fn read_input_from_file(path: &str) -> Vec<(String, String)>{
     let contents = fs::read_to_string(path)
         .expect("Something went wrong with a file");
+
     let result = contents.lines()
         .map(|line| {
             let size = line.len();
@@ -40,7 +41,7 @@ fn set_items_priority(item: &char) -> u8 {
 }
 
 pub fn run_part_1() -> usize {
-    let input = read_input_from_file("./input_files/input.txt");
+    let input = read_input_from_file("src/days/day3/input_files/file.txt");
     let mut result = 0;
 
     for (first_compartment, second_compartment) in input{
