@@ -40,8 +40,7 @@ fn set_items_priority(item: &char) -> u8 {
     }
 }
 
-pub fn run_part_1() -> usize {
-    let input = read_input_from_file("src/days/day3/input_files/file.txt");
+pub fn run_part_1(input: Vec<(String, String)>) -> usize {
     let mut result = 0;
 
     for (first_compartment, second_compartment) in input{
@@ -81,6 +80,13 @@ mod tests{
         assert_eq!(set_items_priority(&'z'), 26);
         assert_eq!(set_items_priority(&'A'), 27);
         assert_eq!(set_items_priority(&'Z'), 52);
+    }
+
+    #[test]
+    fn test_run_part_1(){
+        let input = read_input_from_file("src/days/day3/input_files/test_file.txt");
+        assert_eq!(run_part_1(input), 157);
+
     }
 
 }

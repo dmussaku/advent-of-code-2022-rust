@@ -9,5 +9,5 @@ fn main() {
     println!("Day2 part 1 result = {:?}", day2::day2::run_part_1(day2::day2::read_input_from_file("src/days/day2/input_files/file.txt")));
     println!("Day2 part 2 result = {:?}", day2::day2::run_part_2(day2::day2::read_input_from_file("src/days/day2/input_files/file.txt")));
 
-    println!("Day3 part 1 result = {:?}", day3::day3::run_part_1());
+    println!("Day3 part 1 result = {:?}", day3::day3::run_part_1(day3::day3::read_input_from_file("src/days/day3/input_files/file.txt")));
 }
