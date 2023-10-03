@@ -26,6 +26,14 @@ pub fn run_part_1(input: Vec<(u8, u8, u8, u8)>) -> usize {
     result
 }
 
+pub fn run_part_2(input: Vec<(u8, u8, u8, u8)>) -> usize {
+    let result = input
+        .iter()
+        .filter(|(a, b, c, d)| (a <= d && b >= c))
+        .count() as usize;
+    result
+}
+
 
 #[cfg(test)]
 mod tests{
@@ -43,6 +51,12 @@ mod tests{
     fn test_run_part_1(){
         let result = run_part_1(vec![(2, 4, 6, 8), (2, 3, 4, 5), (5, 7, 7, 9), (2, 8, 3, 7), (6, 6, 4, 6), (2, 6, 4, 8)]);
         assert_eq!(result, 2);
+    }
+
+    #[test]
+    fn test_run_part_2(){
+        let result = run_part_2(vec![(2, 4, 6, 8), (2, 3, 4, 5), (5, 7, 7, 9), (2, 8, 3, 7), (6, 6, 4, 6), (2, 6, 4, 8)]);
+        assert_eq!(result, 4);
     }
 }
 

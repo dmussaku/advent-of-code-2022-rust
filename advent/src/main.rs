@@ -13,5 +13,5 @@ fn main() {
     println!("Day3 part 2 result = {:?}", day3::day3::run_part_2(day3::day3::read_input_from_file_part2("src/days/day3/input_files/file.txt")));
 
     println!("Day4 part 1 result = {:?}", day4::day4::run_part_1(day4::day4::read_input_from_file("src/days/day4/input_files/file.txt")));
-    // println!("Day4 part 2 result = {:?}", day3::day3::run_part_2(day3::day3::read_input_from_file_part2("src/days/day3/input_files/file.txt")));
+    println!("Day4 part 2 result = {:?}", day4::day4::run_part_2(day4::day4::read_input_from_file("src/days/day4/input_files/file.txt")));
 }
