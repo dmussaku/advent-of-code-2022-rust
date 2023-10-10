@@ -54,6 +54,54 @@ fn is_tree_visible(map: &Vec<Vec<u8>>, row: usize, col: usize) -> bool{
     is_visible_from_top || is_visible_from_bottom || is_visible_from_left || is_visible_from_right
 }
 
+
+fn scenic_score(map: &Vec<Vec<u8>>, row: usize, col: usize) -> usize{
+    if row == 0 || col == 0 || row == map.len() - 1 || col == map[0].len() - 1 {
+        return 0;
+    }
+    let mut visible_trees_from_top: usize = 0;
+    let mut visible_trees_from_bottom: usize = 0;
+    let mut visible_trees_from_left: usize = 0;
+    let mut visible_trees_from_right: usize = 0;
+
+    //first iterate to the top
+    for i in (0..row).rev() {
+        if map[i][col] >= map[row][col] {
+            visible_trees_from_top += 1;
+            break;
+        }
+        visible_trees_from_top += 1;
+    }
+    //next iterate to the bottom
+    for i in row+1..map.len() {
+        if map[i][col] >= map[row][col] {
+            visible_trees_from_bottom += 1;
+            break;
+        }
+        visible_trees_from_bottom += 1;
+    }
+
+    //next iterate to the left
+    for i in (0..col).rev() {
+        if map[row][i] >= map[row][col] {
+            visible_trees_from_left += 1;
+            break;
+        }
+        visible_trees_from_left += 1;
+    }
+
+    //next iterate to the right
+    for i in col+1..map[row].len() {
+        if map[row][i] >= map[row][col] {
+            visible_trees_from_right += 1;
+            break;
+        }
+        visible_trees_from_right += 1;
+    }
+    // println!("Visible trees for position [{}, {}] from top: {}, left: {},  right: {}, down: {}", row, col, visible_trees_from_top, visible_trees_from_left, visible_trees_from_right, visible_trees_from_bottom);
+    visible_trees_from_top * visible_trees_from_bottom * visible_trees_from_left * visible_trees_from_right
+}
+
 pub fn run_part_1(input: &Vec<Vec<u8>>) -> usize{
     let mut result = 0;
     let mut resulting_vector: Vec<Vec<u8>> = vec![vec![0; input[0].len()]; input.len()];
@@ -69,6 +117,19 @@ pub fn run_part_1(input: &Vec<Vec<u8>>) -> usize{
     //     println!("Resulting vector: {:?}", resulting_vector[row]);
     // }
     result
+}
+
+pub fn run_part_2(input: &Vec<Vec<u8>>) -> usize {
+    let mut max = 0;
+    for row in 0..input.len() {
+        for col in 0..input[0].len() {
+            let score = scenic_score(&input, row, col);
+            if score > max {
+                max = score;
+            }
+        }
+    }
+    max
 }
 
 
@@ -110,10 +171,34 @@ mod tests{
     }
 
     #[test]
+    fn test_scenic_score(){
+        let input= read_input_from_file(
+            "src/days/day8/input_files/test_file.txt"
+        );
+
+        assert_eq!(scenic_score(&input, 0, 0), 0);
+        assert_eq!(scenic_score(&input, 4, 0), 0);
+        assert_eq!(scenic_score(&input, 0, 4), 0);
+        assert_eq!(scenic_score(&input, 4, 4), 0);
+
+        assert_eq!(scenic_score(&input, 1, 2), 4);
+        assert_eq!(scenic_score(&input, 3, 2), 8);
+        assert_eq!(scenic_score(&input, 2, 1), 6);
+    }
+
+    #[test]
     fn test_run_part_1(){
         let input= read_input_from_file(
             "src/days/day8/input_files/test_file.txt"
         );
         assert_eq!(run_part_1(&input), 21);
+    }
+
+    #[test]
+    fn test_run_part_2(){
+        let input= read_input_from_file(
+            "src/days/day8/input_files/test_file.txt"
+        );
+        assert_eq!(run_part_2(&input), 8);
     }
 }
